@@ -1,0 +1,16 @@
+{
+  "config" : {
+                "db_config": {
+                    "server_name" : "localhost",
+                    "user_name"   : "root",
+                    "password"    : "Welcome123",
+                    "schema"      : "marketplace"
+                },
+
+                "server_config": {
+                    "host"        : "localhost",
+                    "port"        : "9000"
+                }
+
+  }
+}
