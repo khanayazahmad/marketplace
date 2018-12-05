@@ -6,6 +6,8 @@
  * Time: 3:06 AM
  */
 
+include "../config/dbInit.php";
+
 class CompanyRepository
 {
     private $conn;
@@ -18,7 +20,7 @@ class CompanyRepository
     /**
      * @return mixed
      */
-    public function getConn()
+    private function getConn()
     {
         return $this->conn;
     }
@@ -88,11 +90,11 @@ class CompanyRepository
             while(($row = mysqli_fetch_assoc($result))){
 
                 $companyList += [$row['company_id']
-                                    => new Company($row['company_id'],
+                                    => (new Company($row['company_id'],
                                                    $row['name'],
                                                    $row['description'],
                                                    $row['url']
-                                    )
+                                    ))
                 ];
                 break;
 

@@ -6,6 +6,8 @@
  * Time: 3:05 AM
  */
 
+include "../config/dbInit.php";
+
 class ServicesRepository
 {
 
@@ -21,7 +23,7 @@ class ServicesRepository
     /**
      * @return mixed
      */
-    public function getConn()
+    private function getConn()
     {
         return $this->conn;
     }
@@ -147,14 +149,14 @@ class ServicesRepository
             while(($row = mysqli_fetch_assoc($result))){
 
                 $serviceList += [$row['service_id']
-                => $service = new Service($row['service_id'],
-                    $row['name'],
-                    $row['description'],
-                    $row['url'],
-                    $row['visit_count'],
-                    $row['last_visited'],
-                    $this->companyRepository->getByID($row['company_id'])
-                )
+                    => (new Service($row['service_id'],
+                        $row['name'],
+                        $row['description'],
+                        $row['url'],
+                        $row['visit_count'],
+                        $row['last_visited'],
+                        $this->companyRepository->getByID($row['company_id'])
+                    ))
                 ];
                 break;
 
