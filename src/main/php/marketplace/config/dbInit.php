@@ -6,7 +6,7 @@
  * Time: 1:40 AM
  */
 
-require_once "getConfig.php";
+require_once ("getConfig.php");
 
 $db_config = getDBConfig();
 
@@ -45,7 +45,7 @@ if(empty($result)){
 
     $query_create_table = "create table company
                 (
-                  company_id   int not null primary key,
+                  company_id   int not null AUTO_INCREMENT primary key,
                   name   varchar(255) null,
                   description   varchar(1000) null,
                   url   varchar(255) null
@@ -62,10 +62,12 @@ if(empty($result)){
 
     $query_create_table = "create table services
                 (
-                  service_id   int not null primary key,
+                  service_id   int not null AUTO_INCREMENT primary key,
                   name   varchar(255) null,
                   description   varchar(1000) null,
                   url   varchar(255) null,
+                  visit_count int not null,
+                  last_visited long null,
                   company_id   int not null,
                   FOREIGN KEY (company_id) REFERENCES company(company_id)
                 )";
@@ -81,7 +83,7 @@ if(empty($result)){
 
     $query_create_table = "create table reviews
                 (
-                  review_id   int not null primary key,
+                  review_id   int not null AUTO_INCREMENT primary key,
                   ratings   int null,
                   description   varchar(1000) null,
                   service_id   int not null,
@@ -92,26 +94,8 @@ if(empty($result)){
 
 }
 
-$query = "SELECT * FROM statistics";
-$result = mysqli_query($conn, $query);
-
-if(empty($result)){
-
-    $query_create_table = "create table company
-                (
-                  service_id   int not null,
-                  company_id   int not null,
-                  visit_count   int not null,
-                  last_visited   long not null,
-                  url   varchar(255) null,
-                  company_id   int not null,
-                  FOREIGN KEY (company_id) REFERENCES company(company_id),
-                  service_id   int not null,
-                  FOREIGN KEY (service_id) REFERENCES services(service_id)
-                )";
-
-    $result = mysqli_query($conn, $query_create_table);
-
+function getDBConnection(){
+    return $GLOBALS['conn'];
 }
 
 if($conn === false){
