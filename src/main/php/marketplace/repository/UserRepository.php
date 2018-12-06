@@ -6,17 +6,17 @@
  * Time: 2:25 AM
  */
 
-include "../utils/dbInit.php";
-include "../model/User.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/utils/DBConnectionHandler.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/model/User.php";
 
-class UsersRepository
+class UserRepository
 {
 
     private $conn;
 
     function __construct()
     {
-        $this->conn = getDBConnection();
+        $this->conn = (new DBConnectionHandler())->getConn();
     }
 
     /**

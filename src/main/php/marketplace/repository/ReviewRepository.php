@@ -6,14 +6,14 @@
  * Time: 3:03 AM
  */
 
-include "../utils/dbInit.php";
-include "../model/Review.php";
-include "../model/Service.php";
-include "../model/User.php";
-include "ServicesRepository.php";
-include "UsersRepository.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/utils/DBConnectionHandler.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/model/Review.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/model/Service.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/model/User.php";
+include_once "ServiceRepository.php";
+include_once "UserRepository.php";
 
-class ReviewsRepository
+class ReviewRepository
 {
 
     private $conn;
@@ -22,9 +22,9 @@ class ReviewsRepository
 
     function __construct()
     {
-        $this->conn = getDBConnection();
-        $this->serviceRepository = new ServicesRepository();
-        $this->userRepository = new UsersRepository();
+        $this->conn = (new DBConnectionHandler())->getConn();
+        $this->serviceRepository = new ServiceRepository();
+        $this->userRepository = new UserRepository();
     }
 
     /**

@@ -6,12 +6,12 @@
  * Time: 3:05 AM
  */
 
-include "../utils/dbInit.php";
-include "../model/Service.php";
-include "../model/Company.php";
-include "CompanyRepository.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/utils/DBConnectionHandler.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/model/Service.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/model/Company.php";
+include_once "CompanyRepository.php";
 
-class ServicesRepository
+class ServiceRepository
 {
 
     private $conn;
@@ -19,7 +19,7 @@ class ServicesRepository
 
     function __construct()
     {
-        $this->conn = getDBConnection();
+        $this->conn = (new DBConnectionHandler())->getConn();
         $this->companyRepository = new CompanyRepository();
     }
 
@@ -62,17 +62,14 @@ class ServicesRepository
 
     }
 
-    function updateServiceStats($serviceId){
+    function updateServiceLastVisitedAndVisitCountById($serviceId, $last_visited, $visit_count_incr){
 
-        $last_visited = time();
-
-        $query = "update services set last_visited = '$last_visited', visit_count = visit_count + 1
+        $query = "update services set last_visited = '$last_visited', visit_count = visit_count + $visit_count_incr
                                 where service_id = $serviceId";
 
         return mysqli_query($this->getConn(), $query );
 
     }
-
 
     function getByID($serviceId){
 

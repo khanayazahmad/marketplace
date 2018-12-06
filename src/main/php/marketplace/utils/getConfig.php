@@ -6,16 +6,16 @@
  * Time: 1:34 AM
  */
 
-$config = json_decode(file_get_contents("../../utils.json"),true);
+$config = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT']."/config.json"),true);
 
 function getDBConfig(){
 
-    return $GLOBALS['utils']['db_config'];
+    return $GLOBALS['config']['db_config'];
 
 }
 
 function getServerConfig(){
 
-    return $GLOBALS['utils']['server_config'];
+    return $GLOBALS['config']['server_config'];
 
 }

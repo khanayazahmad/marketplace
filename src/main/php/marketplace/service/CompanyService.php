@@ -6,7 +6,7 @@
  * Time: 6:38 AM
  */
 
-include "../repository/CompanyRepository.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/repository/CompanyRepository.php";
 
 class CompanyService
 {
@@ -32,7 +32,7 @@ class CompanyService
         return $this->companyRepository->getByName($companyName);
     }
 
-    public function getListOfCompany(){
+    public function getAllCompany(){
         return $this->companyRepository->getAll();
     }
 

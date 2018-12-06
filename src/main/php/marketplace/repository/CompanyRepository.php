@@ -6,8 +6,8 @@
  * Time: 3:06 AM
  */
 
-include "../utils/dbInit.php";
-include "../model/Company.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/utils/DBConnectionHandler.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/model/Company.php";
 
 class CompanyRepository
 {
@@ -15,7 +15,8 @@ class CompanyRepository
 
     function __construct()
     {
-        $this->conn = getDBConnection();
+        $this->conn = (new DBConnectionHandler())->getConn();
+
     }
 
     /**
@@ -30,9 +31,9 @@ class CompanyRepository
 
         $company = null;
 
-        $query = "select * from company where company_id = $companyId";
+        $query = "select * from company where company_id =". $companyId;
 
-        $result = mysqli_query($this->getConn(), $query );
+        $result = mysqli_query($this->getConn(), $query);
 
 
 
@@ -57,7 +58,7 @@ class CompanyRepository
 
         $query = "select * from company where name = $companyName";
 
-        $result = mysqli_query($this->getConn(), $query );
+        $result = mysqli_query($this->getConn(), $query);
 
 
 
@@ -106,5 +107,7 @@ class CompanyRepository
         return $companyList;
 
     }
+
+
 
 }
