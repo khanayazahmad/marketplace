@@ -55,4 +55,8 @@ class UserService
         return $this->userRepository->getByAddress($address);
     }
 
+    public function getAllUser(){
+        return $this->userRepository->getAll();
+    }
+
 }
