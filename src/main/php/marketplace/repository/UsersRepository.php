@@ -6,7 +6,8 @@
  * Time: 2:25 AM
  */
 
-include "../config/dbInit.php";
+include "../utils/dbInit.php";
+include "../model/User.php";
 
 class UsersRepository
 {
@@ -26,7 +27,7 @@ class UsersRepository
         return $this->conn;
     }
 
-    function createUser(User $user){
+    function create(User $user){
 
         $uname = $user->getUsername();
         $password = $user->getPassword();
@@ -44,7 +45,7 @@ class UsersRepository
 
     }
 
-    function updateUser(User $user){
+    function update(User $user){
 
         $uname = $user->getUsername();
         $password = $user->getPassword();

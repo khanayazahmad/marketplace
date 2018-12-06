@@ -87,7 +87,9 @@ if(empty($result)){
                   ratings   int null,
                   description   varchar(1000) null,
                   service_id   int not null,
-                  FOREIGN KEY (service_id) REFERENCES services(service_id)
+                  uname varchar(255) not null, 
+                  FOREIGN KEY (service_id) REFERENCES services(service_id),
+                  FOREIGN KEY (uname) REFERENCES users(uname)
                 )";
 
     $result = mysqli_query($conn, $query_create_table);

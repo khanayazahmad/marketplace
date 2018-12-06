@@ -6,7 +6,10 @@
  * Time: 3:05 AM
  */
 
-include "../config/dbInit.php";
+include "../utils/dbInit.php";
+include "../model/Service.php";
+include "../model/Company.php";
+include "CompanyRepository.php";
 
 class ServicesRepository
 {
@@ -28,7 +31,7 @@ class ServicesRepository
         return $this->conn;
     }
 
-    function createService(Service $service){
+    function create(Service $service){
 
         $name = $service->getName();
         $description = $service->getDescription();
@@ -44,7 +47,7 @@ class ServicesRepository
 
     }
 
-    function updateService(Service $service){
+    function update(Service $service){
 
         $serviceId = $service->getServiceId();
         $name = $service->getName();

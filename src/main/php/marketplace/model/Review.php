@@ -6,13 +6,16 @@
  * Time: 2:41 AM
  */
 
-class Review
+include "Service.php";
+
+class Review implements JsonSerializable
 {
 
     private $reviewId;
     private $ratings;
     private $description;
     private $service;
+    private $user;
 
     /**
      * Review constructor.
@@ -21,12 +24,13 @@ class Review
      * @param $description
      * @param $service
      */
-    public function __construct($reviewId, $ratings, $description, Service $service)
+    public function __construct($reviewId, $ratings, $description, Service $service, User $user)
     {
         $this->reviewId = $reviewId;
         $this->ratings = $ratings;
         $this->description = $description;
         $this->service = $service;
+        $this->user = $user;
     }
 
     /**
@@ -92,5 +96,35 @@ class Review
     {
         $this->service = $service;
     }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+
+
+    public function jsonSerialize()
+    {
+        return [
+            "reviewId" => $this->getReviewId(),
+            "ratings" => $this->getRatings(),
+            "description" => $this->getDescription(),
+            "service" => $this->getService()->jsonSerialize(),
+            "user" => $this->getUser()->jsonSerialize()
+        ];
+    }
+
 
 }

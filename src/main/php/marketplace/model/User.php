@@ -6,7 +6,7 @@
  * Time: 2:25 AM
  */
 
-class User
+class User implements JsonSerializable
 {
     private $username;
     private $password;
@@ -150,6 +150,18 @@ class User
         $this->phone = $phone;
     }
 
+    public function jsonSerialize()
+    {
+        return [
+            "username" => $this->getUsername(),
+            "password" => $this->getPassword(),
+            "firstName" => $this->getFirstName(),
+            "lastName" => $this->getLastName(),
+            "address" => $this->getAddress(),
+            "email" => $this->getEmail(),
+            "phone" => $this->getPhone()
+        ];
+    }
 
 
 }

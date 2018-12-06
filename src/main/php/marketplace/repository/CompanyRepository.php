@@ -6,7 +6,8 @@
  * Time: 3:06 AM
  */
 
-include "../config/dbInit.php";
+include "../utils/dbInit.php";
+include "../model/Company.php";
 
 class CompanyRepository
 {

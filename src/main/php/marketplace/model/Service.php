@@ -6,7 +6,9 @@
  * Time: 2:30 AM
  */
 
-class Service
+include "Company.php";
+
+class Service implements JsonSerializable
 {
 
     private $serviceId;
@@ -159,5 +161,19 @@ class Service
     {
         $this->company = $company;
     }
+
+    public function jsonSerialize()
+    {
+        return [
+            "serviceId" => $this->getServiceId(),
+            "name" => $this->getName(),
+            "description" => $this->getDescription(),
+            "url" => $this->getUrl(),
+            "visitCount" => $this->getVisitCount(),
+            "lastVisited" => $this->getLastVisited(),
+            "company" => $this->getCompany()->jsonSerialize()
+        ];
+    }
+
 
 }

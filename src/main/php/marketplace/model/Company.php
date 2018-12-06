@@ -6,7 +6,8 @@
  * Time: 2:34 AM
  */
 
-class Company
+
+class Company implements JsonSerializable
 {
     private $companyId;
     private $name;
@@ -92,7 +93,15 @@ class Company
         $this->url = $url;
     }
 
-
+    public function jsonSerialize()
+    {
+        return [
+            "companyId" => $this->getCompanyId(),
+            "name" => $this->getName(),
+            "description" => $this->getDescription(),
+            "url" => $this->getUrl()
+        ];
+    }
 
 
 }

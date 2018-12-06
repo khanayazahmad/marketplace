@@ -6,18 +6,25 @@
  * Time: 3:03 AM
  */
 
-include "../config/dbInit.php";
+include "../utils/dbInit.php";
+include "../model/Review.php";
+include "../model/Service.php";
+include "../model/User.php";
+include "ServicesRepository.php";
+include "UsersRepository.php";
 
 class ReviewsRepository
 {
 
     private $conn;
     private $serviceRepository;
+    private $userRepository;
 
     function __construct()
     {
         $this->conn = getDBConnection();
         $this->serviceRepository = new ServicesRepository();
+        $this->userRepository = new UsersRepository();
     }
 
     /**
@@ -28,28 +35,30 @@ class ReviewsRepository
         return $this->conn;
     }
 
-    function createReview(Review $review){
+    function create(Review $review){
 
         $ratings = $review->getRatings();
         $description = $review->getDescription();
         $service_id = $review->getService()->getServiceId();
+        $uname = $review->getUser()->getUsername();
 
-        $query = "insert into reviews (ratings,description,service_id)
-                                values ('$ratings','$description','$service_id')";
+        $query = "insert into reviews (ratings,description,service_id, uname)
+                                values ('$ratings','$description','$service_id', $uname)";
 
         return mysqli_query($this->getConn(), $query );
 
     }
 
-    function updateReview(Review $review){
+    function update(Review $review){
 
         $reviewId = $review->getReviewId();
         $ratings = $review->getRatings();
         $description = $review->getDescription();
         $service_id = $review->getService()->getServiceId();
+        $uname = $review->getUser()->getUsername();
 
-        $query = "update reviews set ratings = '$ratings', description = '$description', service_id = '$service_id'
-                                where review_id = $reviewId";
+        $query = "update reviews set ratings = '$ratings', description = '$description', service_id = '$service_id', uname = '$uname' 
+                  where review_id = $reviewId";
 
         return mysqli_query($this->getConn(), $query );
 
@@ -73,7 +82,8 @@ class ReviewsRepository
                 $review = new Review($row['review_id'],
                     $row['ratings'],
                     $row['description'],
-                    $this->serviceRepository->getByID($row['service_id'])
+                    $this->serviceRepository->getByID($row['service_id']),
+                    $this->userRepository->getByUsername($row['uname'])
                 );
                 break;
 
@@ -103,7 +113,8 @@ class ReviewsRepository
                     new Review($row['review_id'],
                     $row['ratings'],
                     $row['description'],
-                    $this->serviceRepository->getByID($row['service_id'])
+                    $this->serviceRepository->getByID($row['service_id']),
+                        $this->userRepository->getByUsername($row['uname'])
                 )];
 
             }
@@ -132,7 +143,8 @@ class ReviewsRepository
                 => (new Review($row['review_id'],
                         $row['ratings'],
                         $row['description'],
-                        $this->serviceRepository->getByID($row['service_id'])
+                        $this->serviceRepository->getByID($row['service_id']),
+                        $this->userRepository->getByUsername($row['uname'])
                     ))
                 ];
                 break;
