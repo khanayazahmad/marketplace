@@ -17,10 +17,10 @@ class ServiceRepository
     private $conn;
     private $companyRepository;
 
-    function __construct()
+    function __construct(DBConnectionHandler $dbConnectionHandler, CompanyRepository $companyRepository)
     {
-        $this->conn = (new DBConnectionHandler())->getConn();
-        $this->companyRepository = new CompanyRepository();
+        $this->conn = $dbConnectionHandler->getConn();
+        $this->companyRepository = $companyRepository;
     }
 
     /**

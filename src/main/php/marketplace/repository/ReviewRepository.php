@@ -20,11 +20,11 @@ class ReviewRepository
     private $serviceRepository;
     private $userRepository;
 
-    function __construct()
+    function __construct(DBConnectionHandler $dbConnectionHandler, ServiceRepository $serviceRepository, UserRepository $userRepository)
     {
-        $this->conn = (new DBConnectionHandler())->getConn();
-        $this->serviceRepository = new ServiceRepository();
-        $this->userRepository = new UserRepository();
+        $this->conn = $dbConnectionHandler->getConn();
+        $this->serviceRepository = $serviceRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**

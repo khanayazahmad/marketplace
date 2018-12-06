@@ -14,9 +14,9 @@ class UserRepository
 
     private $conn;
 
-    function __construct()
+    function __construct(DBConnectionHandler $dbConnectionHandler)
     {
-        $this->conn = (new DBConnectionHandler())->getConn();
+        $this->conn = $dbConnectionHandler->getConn();
     }
 
     /**

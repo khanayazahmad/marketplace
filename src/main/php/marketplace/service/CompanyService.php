@@ -7,6 +7,7 @@
  */
 
 include_once $_SERVER['DOCUMENT_ROOT']."/repository/CompanyRepository.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/model/Company.php";
 
 class CompanyService
 {
