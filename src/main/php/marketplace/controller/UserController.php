@@ -29,21 +29,23 @@ class UserController
 
     /**
      * POST : "/create"
-     * @param $user
+     * @param $userJson
      * @return boolean
      */
-    public function createUser($user){
-        $user = json_decode_object($user, User::class);
+    public function createUser($userJson){
+        $user = new User(null,null,null,null,null,null,null);
+        $user->jsonDecode($userJson);
         return $this->userService->createUser($user);
     }
 
     /**
      * POST : "/update"
-     * @param $user
+     * @param $userJson
      * @return boolean
      */
-    public function updateUser($user){
-        $user = json_decode_object($user, User::class);
+    public function updateUser($userJson){
+        $user = new User(null,null,null,null,null,null,null);
+        $user->jsonDecode($userJson);
         return $this->userService->updateUser($user);
     }
 
@@ -63,7 +65,7 @@ class UserController
      * @return string
      */
     public function getUserByFirstName($firstName){
-        $userList = $this->userService->getByFirstName($firstName);
+        $userList = $this->userService->getUserByFirstName($firstName);
         return json_encode($userList,true);
     }
 
@@ -73,7 +75,7 @@ class UserController
      * @return string
      */
     public function getUserByLastName($lastName){
-        $userList = $this->userService->getByLastName($lastName);
+        $userList = $this->userService->getUserByLastName($lastName);
         return json_encode($userList,true);
     }
 
@@ -83,7 +85,7 @@ class UserController
      * @return string
      */
     public function getUserByEmail($email){
-        $userList = $this->userService->getByEmailId($email);
+        $userList = $this->userService->getUserByEmail($email);
         return json_encode($userList, true);
     }
 
@@ -93,7 +95,7 @@ class UserController
      * @return string
      */
     public function getUserByPhone($phone){
-        $userList = $this->userService->getByPhone($phone);
+        $userList = $this->userService->getUserByPhone($phone);
         return json_encode($userList, true);
     }
 
@@ -103,7 +105,7 @@ class UserController
      * @return string
      */
     public function getUserByAddress($address){
-        $userList = $this->userService->getByAddress($address);
+        $userList = $this->userService->getUserByAddress($address);
         return json_encode($userList, true);
     }
 

@@ -1,0 +1,45 @@
+{
+  "user":{
+    "name": "User",
+    "methods": {
+      "create": "createUser",
+      "update": "updateUser",
+      "getByUsername": "getUserByUsername",
+      "getByFirstName": "getUserByFirstName",
+      "getByLastName": "getUserByLastName",
+      "getByEmail": "getUserByEmail",
+      "getByPhone": "getUserByPhone",
+      "getByAddress": "getUserByAddress" ,
+      "getAll": "getAllUser"
+    }
+  },
+  "service":{
+    "name": "Service",
+    "methods": {
+      "create": "createService",
+      "update": "updateService",
+      "updateStats": "updateServiceStatisticsById",
+      "getById": "getServiceById",
+      "getByName": "getServiceByName",
+      "getAll": "getAllService"
+    }
+  },
+  "company":{
+    "name": "Company",
+    "methods": {
+      "getById": "getCompanyById",
+      "getByName": "getCompanyByName",
+      "getAll": "getAllCompany"
+    }
+  },
+  "review":{
+    "name": "Review",
+    "methods": {
+      "create": "createReview",
+      "update": "updateReview",
+      "getById": "getReviewById",
+      "getByServiceId": "getReviewByServiceId",
+      "getAll": "getAllReview"
+    }
+  }
+}

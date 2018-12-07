@@ -39,7 +39,13 @@ class UserRepository
 
 
         $query = "insert into users (uname, password, fname, lname, address, email, phone)
-                                values ('$uname', '$password', '$fname', '$lname', '$address', '$email', '$phone')";
+                                values ('".$uname   ."',
+                                        '".$password."',
+                                        '".$fname   ."',
+                                        '".$lname   ."',
+                                        '".$address ."',
+                                        '".$email   ."',
+                                        '".$phone   ."')";
 
         return mysqli_query($this->getConn(), $query );
 
@@ -56,14 +62,14 @@ class UserRepository
         $phone = $user->getPhone();
 
         $query = "update users set 
-                 uname = '$uname',
-                 password = '$password',
-                 fname = '$fname',
-                 lname = '$lname',
-                 address = '$address',
-                 email = '$email',
-                 phone = '$phone'
-                                where uname = $uname";
+                 uname    = '".$uname   ."',
+                 password = '".$password."',
+                 fname    = '".$fname   ."',
+                 lname    = '".$lname   ."',
+                 address  = '".$address ."',
+                 email    = '".$email   ."',
+                 phone    = '".$phone   ."'
+           where uname    = '".$uname   ."'";
 
         return mysqli_query($this->getConn(), $query );
 
@@ -74,7 +80,7 @@ class UserRepository
 
         $user = null;
 
-        $query = "select * from users where uname = $username";
+        $query = "select * from users where uname = '".$username."'";
 
         $result = mysqli_query($this->getConn(), $query );
 
@@ -105,14 +111,14 @@ class UserRepository
 
         $userList = null;
 
-        $query = "select * from users where fname = $firstName";
+        $query = "select * from users where fname = '".$firstName."'";
 
         $result = mysqli_query($this->getConn(), $query );
 
 
 
         if (mysqli_num_rows($result)> 0) {
-
+            $userList = [];
             while(($row = mysqli_fetch_assoc($result))){
 
                 $userList += [$row['uname'] => new User($row['uname'],
@@ -122,7 +128,6 @@ class UserRepository
                     $row['address'],
                     $row['email'],
                     $row['phone'])];
-                break;
 
             }
 
@@ -136,14 +141,14 @@ class UserRepository
 
         $userList = null;
 
-        $query = "select * from users where lname = $lastName";
+        $query = "select * from users where lname = '".$lastName."'";
 
         $result = mysqli_query($this->getConn(), $query );
 
 
 
         if (mysqli_num_rows($result)> 0) {
-
+            $userList = [];
             while(($row = mysqli_fetch_assoc($result))){
 
                 $userList += [$row['uname'] => new User($row['uname'],
@@ -153,7 +158,6 @@ class UserRepository
                     $row['address'],
                     $row['email'],
                     $row['phone'])];
-                break;
 
             }
 
@@ -167,14 +171,14 @@ class UserRepository
 
         $userList = null;
 
-        $query = "select * from users where lname = $lastName AND fname = $firstName";
+        $query = "select * from users where lname = '".$lastName."' AND fname = '".$firstName."'";
 
         $result = mysqli_query($this->getConn(), $query );
 
 
 
         if (mysqli_num_rows($result)> 0) {
-
+            $userList = [];
             while(($row = mysqli_fetch_assoc($result))){
 
                 $userList += [$row['uname'] => new User($row['uname'],
@@ -184,7 +188,7 @@ class UserRepository
                     $row['address'],
                     $row['email'],
                     $row['phone'])];
-                break;
+
 
             }
 
@@ -194,18 +198,18 @@ class UserRepository
 
     }
 
-    function getByEmailId($emailId){
+    function getByEmail($email){
 
         $userList = null;
 
-        $query = "select * from users where email = $emailId";
+        $query = "select * from users where email = '".$email."'";
 
         $result = mysqli_query($this->getConn(), $query );
 
 
 
         if (mysqli_num_rows($result)> 0) {
-
+            $userList = [];
             while(($row = mysqli_fetch_assoc($result))){
 
                 $userList += [$row['uname'] => new User($row['uname'],
@@ -215,7 +219,6 @@ class UserRepository
                     $row['address'],
                     $row['email'],
                     $row['phone'])];
-                break;
 
             }
 
@@ -229,14 +232,14 @@ class UserRepository
 
         $userList = null;
 
-        $query = "select * from users where phone = $phone";
+        $query = "select * from users where phone = '".$phone."'";
 
         $result = mysqli_query($this->getConn(), $query );
 
 
 
         if (mysqli_num_rows($result)> 0) {
-
+            $userList = [];
             while(($row = mysqli_fetch_assoc($result))){
 
                 $userList += [$row['uname'] => new User($row['uname'],
@@ -246,7 +249,7 @@ class UserRepository
                     $row['address'],
                     $row['email'],
                     $row['phone'])];
-                break;
+
 
             }
 
@@ -260,14 +263,14 @@ class UserRepository
 
         $userList = null;
 
-        $query = "select * from users where address like '%$address%'";
+        $query = "select * from users where address like '%".$address."%'";
 
         $result = mysqli_query($this->getConn(), $query );
 
 
 
         if (mysqli_num_rows($result)> 0) {
-
+            $userList = [];
             while(($row = mysqli_fetch_assoc($result))){
 
                 $userList += [$row['uname'] => new User($row['uname'],
@@ -277,7 +280,7 @@ class UserRepository
                     $row['address'],
                     $row['email'],
                     $row['phone'])];
-                break;
+
 
             }
 
@@ -298,7 +301,7 @@ class UserRepository
 
 
         if (mysqli_num_rows($result)> 0) {
-
+            $userList = [];
             while(($row = mysqli_fetch_assoc($result))){
 
                 $userList += [$row['uname'] => new User($row['uname'],
@@ -308,8 +311,6 @@ class UserRepository
                     $row['address'],
                     $row['email'],
                     $row['phone'])];
-
-                break;
 
             }
 

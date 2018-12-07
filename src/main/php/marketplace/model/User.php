@@ -163,5 +163,17 @@ class User implements JsonSerializable
         ];
     }
 
+    public function jsonDecode($json)
+    {
+        $data = json_decode($json, true);
+        $this->username = $data['username'];
+        $this->password = $data['password'];
+        $this->firstName = $data['firstName'];
+        $this->lastName = $data['lastName'];
+        $this->address = $data['address'];
+        $this->email = $data['email'];
+        $this->phone = $data['phone'];
+    }
+
 
 }

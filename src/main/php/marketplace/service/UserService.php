@@ -44,7 +44,7 @@ class UserService
     }
 
     public function getUserByEmail($email){
-        return $this->userRepository->getByEmailId($email);
+        return $this->userRepository->getByEmail($email);
     }
 
     public function getUserByPhone($phone){

@@ -29,31 +29,35 @@ class ServiceController
 
     /**
      * POST : "/create"
-     * @param $service
+     * @param $serviceJson
      * @return boolean
      */
-    public function createService($service){
-        $service = json_decode_object($service, Service::class);
+    public function createService($serviceJson){
+        $company = new Company(null,null,null,null);
+        $service = new Service(null,null,null,null,null,null,$company);
+        $service->jsonDecode($serviceJson);
         return $this->serviceService->createService($service);
     }
 
     /**
      * POST : "/update"
-     * @param $service
+     * @param $serviceJson
      * @return boolean
      */
-    public function updateService(Service $service){
-        $service = json_decode_object($service, Service::class);
+    public function updateService($serviceJson){
+        $company = new Company(null,null,null,null);
+        $service = new Service(null,null,null,null,null,null,$company);
+        $service->jsonDecode($serviceJson);
         return $this->serviceService->updateService($service);
     }
 
     /**
-     * GET : "/update/{serviceId}"
+     * GET : "/updateStats/{serviceId}"
      * @param $serviceId
      * @return boolean
      */
     public function updateServiceStatisticsById($serviceId){
-        return $this->serviceService->updateServiceStatisticsById($serviceId);
+        return $this->serviceService->updateServiceStatisticsById(intval($serviceId));
     }
 
     /**
@@ -62,7 +66,7 @@ class ServiceController
      * @return string
      */
     public function getServiceById($serviceId){
-        $service = $this->serviceService->getServiceById($serviceId);
+        $service = $this->serviceService->getServiceById(intval($serviceId));
         return json_encode($service);
     }
 
@@ -81,7 +85,7 @@ class ServiceController
      * @return string
      */
     public function getAllService(){
-        $serviceList = $this->serviceService->getAll();
+        $serviceList = $this->serviceService->getAllService();
         return json_encode($serviceList,true);
     }
 

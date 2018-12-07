@@ -28,7 +28,7 @@ class ReviewService
     }
 
     public function updateReview(Review $review){
-        return $this->reviewRepository->create($review);
+        return $this->reviewRepository->update($review);
     }
 
     public function getReviewById($reviewId){

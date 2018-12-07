@@ -5,18 +5,18 @@
  * Date: 12/4/2018
  * Time: 11:59 PM
  */
-include_once "controller/CompanyController.php";
-include_once "service/CompanyService.php";
-include_once "repository/CompanyRepository.php";
+
+
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+
+include_once $_SERVER['DOCUMENT_ROOT']."/utils/APIHandler.php";
 
 $url = $_SERVER['REQUEST_URI'];
-echo $url."<br>";
-if($url == "/company/getById/1"){
-    $companyController = new CompanyController(new CompanyService(new CompanyRepository()));
-    echo $companyController->getCompanyById(1);
 
-}else{
-    echo "unknown";
-}
+$responseEntity = APIHandler::executeAPI($_SERVER['REQUEST_METHOD'],$_SERVER['REQUEST_URI']);
+
+http_response_code($responseEntity['status']);
+echo $responseEntity['response'];
 
 

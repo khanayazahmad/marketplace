@@ -103,5 +103,13 @@ class Company implements JsonSerializable
         ];
     }
 
+    public function jsonDecode($json){
+        $data = json_decode($json,true);
+        $this->companyId   = $data['companyId'];
+        $this->name        = $data['name'];
+        $this->description = $data['description'];
+        $this->url         = $data['url'];
+    }
+
 
 }

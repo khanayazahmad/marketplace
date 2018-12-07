@@ -56,7 +56,7 @@ class CompanyRepository
 
         $company = null;
 
-        $query = "select * from company where name = $companyName";
+        $query = "select * from company where name = '". $companyName."'";
 
         $result = mysqli_query($this->getConn(), $query);
 
@@ -88,7 +88,7 @@ class CompanyRepository
 
 
         if (mysqli_num_rows($result)> 0) {
-
+            $companyList = [];
             while(($row = mysqli_fetch_assoc($result))){
 
                 $companyList += [$row['company_id']
@@ -98,7 +98,7 @@ class CompanyRepository
                                                    $row['url']
                                     ))
                 ];
-                break;
+
 
             }
 

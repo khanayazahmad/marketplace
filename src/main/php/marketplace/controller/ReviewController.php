@@ -29,22 +29,30 @@ class ReviewController
 
     /**
      * POST : "/create"
-     * @param $review
+     * @param $reviewJson
      * @return boolean
      */
-    public function createReview($review){
-        $review = json_decode_object($review, Review::class);
+    public function createReview($reviewJson){
+        $company = new Company(null,null,null,null);
+        $service = new Service(null,null,null,null,null,null,$company);
+        $user = new User(null,null,null,null,null,null,null);
+        $review = new Review(null,null,null,$service,$user);
+        $review->jsonDecode($reviewJson);
         return $this->reviewService->createReview($review);
 
     }
 
     /**
      * POST : "/update"
-     * @param $review
+     * @param $reviewJson
      * @return boolean
      */
-    public function updateReview($review){
-        $review = json_decode_object($review, Review::class);
+    public function updateReview($reviewJson){
+        $company = new Company(null,null,null,null);
+        $service = new Service(null,null,null,null,null,null,$company);
+        $user = new User(null,null,null,null,null,null,null);
+        $review = new Review(null,null,null,$service,$user);
+        $review->jsonDecode($reviewJson);
         return $this->reviewService->updateReview($review);
     }
 
@@ -54,7 +62,7 @@ class ReviewController
      * @return string
      */
     public function getReviewById($reviewId){
-        $review = $this->reviewService->getReviewById($reviewId);
+        $review = $this->reviewService->getReviewById(intval($reviewId));
         return json_encode($review);
     }
 
@@ -64,7 +72,7 @@ class ReviewController
      * @return string
      */
     public function getReviewByServiceId($serviceId){
-        $review = $this->reviewService->getReviewByServiceId($serviceId);
+        $review = $this->reviewService->getReviewByServiceId(intval($serviceId));
         return json_encode($review);
     }
 

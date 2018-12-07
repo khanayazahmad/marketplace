@@ -6,7 +6,7 @@
  * Time: 2:30 AM
  */
 
-include "Company.php";
+include_once "Company.php";
 
 class Service implements JsonSerializable
 {
@@ -173,6 +173,18 @@ class Service implements JsonSerializable
             "lastVisited" => $this->getLastVisited(),
             "company" => $this->getCompany()->jsonSerialize()
         ];
+    }
+
+    public function jsonDecode($json){
+        $data = json_decode($json,true);
+        $this->serviceId   = $data['serviceId'];
+        $this->name        = $data['name'];
+        $this->description = $data['description'];
+        $this->url         = $data['url'];
+        $this->visitCount  = $data['visitCount'];
+        $this->lastVisited = $data['lastVisited'];
+        $this->company = new Company(null,null,null,null);
+        $this->company->jsonDecode(json_encode($data['company']));
     }
 
 

@@ -8,8 +8,6 @@
 
 include_once $_SERVER['DOCUMENT_ROOT']."/utils/DBConnectionHandler.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/model/Review.php";
-include_once $_SERVER['DOCUMENT_ROOT']."/model/Service.php";
-include_once $_SERVER['DOCUMENT_ROOT']."/model/User.php";
 include_once "ServiceRepository.php";
 include_once "UserRepository.php";
 
@@ -20,11 +18,11 @@ class ReviewRepository
     private $serviceRepository;
     private $userRepository;
 
-    function __construct(DBConnectionHandler $dbConnectionHandler, ServiceRepository $serviceRepository, UserRepository $userRepository)
+    function __construct(DBConnectionHandler $dbConnectionHandler)
     {
         $this->conn = $dbConnectionHandler->getConn();
-        $this->serviceRepository = $serviceRepository;
-        $this->userRepository = $userRepository;
+        $this->serviceRepository = new ServiceRepository($dbConnectionHandler);
+        $this->userRepository = new UserRepository($dbConnectionHandler);
     }
 
     /**
@@ -42,8 +40,10 @@ class ReviewRepository
         $service_id = $review->getService()->getServiceId();
         $uname = $review->getUser()->getUsername();
 
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
         $query = "insert into reviews (ratings,description,service_id, uname)
-                                values ('$ratings','$description','$service_id', $uname)";
+                                values ('".$ratings."','". $description."','". $service_id."','".$uname."')";
 
         return mysqli_query($this->getConn(), $query );
 
@@ -57,8 +57,8 @@ class ReviewRepository
         $service_id = $review->getService()->getServiceId();
         $uname = $review->getUser()->getUsername();
 
-        $query = "update reviews set ratings = '$ratings', description = '$description', service_id = '$service_id', uname = '$uname' 
-                  where review_id = $reviewId";
+        $query = "update reviews set ratings = ".$ratings.",description = '".$description."', service_id = '".$service_id."', uname = '".$uname."'
+                                where review_id =". $reviewId;
 
         return mysqli_query($this->getConn(), $query );
 
@@ -69,7 +69,7 @@ class ReviewRepository
 
         $review = null;
 
-        $query = "select * from reviews where review_id = $reviewId";
+        $query = "select * from reviews where review_id = ".$reviewId;
 
         $result = mysqli_query($this->getConn(), $query );
 
@@ -99,14 +99,14 @@ class ReviewRepository
 
         $reviewList = null;
 
-        $query = "select * from reviews where service_id = $serviceId";
+        $query = "select * from reviews where service_id =". $serviceId;
 
         $result = mysqli_query($this->getConn(), $query );
 
 
 
         if (mysqli_num_rows($result)> 0) {
-
+            $reviewList = [];
             while(($row = mysqli_fetch_assoc($result))){
 
                 $reviewList += [$row['review_id'] =>
@@ -136,7 +136,7 @@ class ReviewRepository
 
 
         if (mysqli_num_rows($result)> 0) {
-
+            $reviewList = [];
             while(($row = mysqli_fetch_assoc($result))){
 
                 $reviewList += [$row['review_id']
@@ -147,7 +147,7 @@ class ReviewRepository
                         $this->userRepository->getByUsername($row['uname'])
                     ))
                 ];
-                break;
+
 
             }
 

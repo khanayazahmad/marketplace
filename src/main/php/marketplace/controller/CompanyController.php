@@ -31,7 +31,7 @@ class CompanyController
      * @return string
      */
     public function getCompanyById($companyId){
-        $company = $this->companyService->getCompanyById($companyId);
+        $company = $this->companyService->getCompanyById(intval($companyId));
         return json_encode($company);
     }
 
@@ -50,7 +50,7 @@ class CompanyController
      * GET : "/getAll"
      * @return string
      */
-    public function getListOfCompany(){
+    public function getAllCompany(){
         $companyList = $this->companyService->getAllCompany();
         return json_encode($companyList,true);
 

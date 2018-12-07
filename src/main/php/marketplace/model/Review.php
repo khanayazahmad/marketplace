@@ -6,7 +6,8 @@
  * Time: 2:41 AM
  */
 
-include "Service.php";
+include_once "Service.php";
+include_once "User.php";
 
 class Review implements JsonSerializable
 {
@@ -23,6 +24,7 @@ class Review implements JsonSerializable
      * @param $ratings
      * @param $description
      * @param $service
+     * @param $user
      */
     public function __construct($reviewId, $ratings, $description, Service $service, User $user)
     {
@@ -124,6 +126,18 @@ class Review implements JsonSerializable
             "service" => $this->getService()->jsonSerialize(),
             "user" => $this->getUser()->jsonSerialize()
         ];
+    }
+
+    public function jsonDecode($json){
+        $data = json_decode($json,true);
+        $this->reviewId    = $data['reviewId'];
+        $this->ratings     = $data['ratings'];
+        $this->description = $data['description'];
+        $company = new Company(null,null,null,null);
+        $this->service = new Service(null, null,null,null,null,null,$company);
+        $this->service->jsonDecode(json_encode($data['service']));
+        $this->user = new User(null,null,null,null,null,null,null);
+        $this->user->jsonDecode(json_encode($data['user']));
     }
 
 

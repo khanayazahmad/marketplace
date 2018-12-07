@@ -7,7 +7,7 @@
  */
 
 $config = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT']."/config.json"),true);
-
+//$config = json_decode(file_get_contents("../config.json"),true);
 function getDBConfig(){
 
     return $GLOBALS['config']['db_config'];
