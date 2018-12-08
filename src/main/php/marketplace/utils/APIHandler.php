@@ -42,6 +42,8 @@ class APIHandler
 
     public static function executeAPI($requestMethod, $uri){
 
+        echo "reached api handler";
+
         $dbConnectionHandler = new DBConnectionHandler();
 
         $uri_map = self::parseURI($requestMethod, $uri);
@@ -65,6 +67,7 @@ class APIHandler
 
                 if (sizeof($uri_map["params"]) == 0) {
                     if (is_callable(array($controller, $method))){
+                        echo "reached callable";
 
                         $response = $controller->$method();
 

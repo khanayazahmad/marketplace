@@ -99,7 +99,7 @@ class ReviewRepository
 
         $reviewList = null;
 
-        $query = "select * from reviews where service_id =". $serviceId;
+        $query = "select * from reviews where service_id =". $serviceId." order by ratings ";
 
         $result = mysqli_query($this->getConn(), $query );
 

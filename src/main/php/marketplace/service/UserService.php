@@ -56,6 +56,7 @@ class UserService
     }
 
     public function getAllUser(){
+        echo "reached service";
         return $this->userRepository->getAll();
     }
 
