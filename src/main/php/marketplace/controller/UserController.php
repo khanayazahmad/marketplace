@@ -114,9 +114,7 @@ class UserController
      * @return string
      */
     public function getAllUser(){
-        echo "reached User Controller";
-
-        $userList = $this->userService->getAllUser();
+       $userList = $this->userService->getAllUser();
         return json_encode($userList, true);
     }
 }

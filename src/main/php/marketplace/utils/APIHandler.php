@@ -42,8 +42,6 @@ class APIHandler
 
     public static function executeAPI($requestMethod, $uri){
 
-        echo "reached api handler";
-
         $dbConnectionHandler = new DBConnectionHandler();
 
         $uri_map = self::parseURI($requestMethod, $uri);
@@ -67,15 +65,14 @@ class APIHandler
 
                 if (sizeof($uri_map["params"]) == 0) {
                     if (is_callable(array($controller, $method))){
-                        echo "reached callable";
 
                         $response = $controller->$method();
 
-                        if($response){
-                            return array("response"=>$response, "status"=>200);
+                        if($response == false || $response == "null" || $response == "false"){
+                            return ["response"=>json_encode(["message"=>"Not Found"]), "status"=>404];
 
                         }else{
-                            return ["response"=>json_encode(["message"=>"Not Found"]), "status"=>404];
+                            return array("response"=>$response, "status"=>200);
 
                         }
                     }else{
@@ -86,11 +83,11 @@ class APIHandler
 
                         $response = $controller->$method($uri_map["params"][0]);
 
-                        if($response){
-                            return array("response"=>$response, "status"=>200);
+                        if($response == false || $response == "null" || $response == "false"){
+                            return ["response"=>json_encode(["message"=>"Not Found"]), "status"=>404];
 
                         }else{
-                            return ["response"=>json_encode(["message"=>"Not Found"]), "status"=>404];
+                            return array("response"=>$response, "status"=>200);
 
                         }
                     }else{
@@ -102,7 +99,7 @@ class APIHandler
                     $input = file_get_contents('php://input');
                     $response = $controller->$method($input);
 
-                    if($response){
+                    if($response == false || $response == "null" || $response == "false"){
                         return ["response"=>json_encode(["message"=>"Success"]), "status"=>200];
                     }else{
                         return ["response"=>json_encode(["message"=>"Failure"]), "status"=>417];
