@@ -68,7 +68,8 @@ class APIHandler
 
                         $response = $controller->$method();
 
-                        if($response == false || $response == "null" || $response == "false"){
+
+                        if($response == '{"data":null}' || $response == '{"data":false}'){
                             return ["response"=>json_encode(["message"=>"Not Found"]), "status"=>404];
 
                         }else{
@@ -83,7 +84,7 @@ class APIHandler
 
                         $response = $controller->$method($uri_map["params"][0]);
 
-                        if($response == false || $response == "null" || $response == "false"){
+                        if($response == '{"data":null}' || $response == '{"data":false}'){
                             return ["response"=>json_encode(["message"=>"Not Found"]), "status"=>404];
 
                         }else{
@@ -99,7 +100,7 @@ class APIHandler
                     $input = file_get_contents('php://input');
                     $response = $controller->$method($input);
 
-                    if($response == false || $response == "null" || $response == "false"){
+                    if($response == '{"data":null}' || $response == '{"data":false}'){
                         return ["response"=>json_encode(["message"=>"Success"]), "status"=>200];
                     }else{
                         return ["response"=>json_encode(["message"=>"Failure"]), "status"=>417];
