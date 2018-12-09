@@ -197,8 +197,9 @@ class ServiceRepository
                     array_push($serviceList[$service->getCompany()->getCompanyId()], $service);
                 }else{
 
-                    if(sizeof($serviceList[$service->getCompany()->getCompanyId()])<=5)
-                        $serviceList += [$service->getCompany()->getCompanyId()=>[$service]];
+                    if(sizeof($serviceList[$service->getCompany()->getCompanyId()])<= 5) {
+                        $serviceList += [$service->getCompany()->getCompanyId() => [$service]];
+                    }
                 }
 
             }
