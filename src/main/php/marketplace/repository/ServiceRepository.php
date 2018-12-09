@@ -137,7 +137,7 @@ class ServiceRepository
 
         $serviceList = null;
 
-        $query = "select * from services";
+        $query = "select * from services order by visit_count desc";
 
         $result = mysqli_query($this->getConn(), $query );
 
