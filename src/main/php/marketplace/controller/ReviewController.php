@@ -63,7 +63,7 @@ class ReviewController
      */
     public function getReviewById($reviewId){
         $review = $this->reviewService->getReviewById(intval($reviewId));
-        return json_encode($review);
+        return json_encode(["data"=>$review]);
     }
 
     /**
@@ -73,7 +73,7 @@ class ReviewController
      */
     public function getReviewByServiceId($serviceId){
         $review = $this->reviewService->getReviewByServiceId(intval($serviceId));
-        return json_encode($review);
+        return json_encode(["data"=>$review]);
     }
 
     /**
@@ -82,7 +82,7 @@ class ReviewController
      */
     public function getAllReview(){
         $reviewList = $this->reviewService->getAllReview();
-        return json_encode($reviewList,true);
+        return json_encode(["data"=>$reviewList],true);
     }
 
 }

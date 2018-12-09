@@ -67,7 +67,7 @@ class ServiceController
      */
     public function getServiceById($serviceId){
         $service = $this->serviceService->getServiceById(intval($serviceId));
-        return json_encode($service);
+        return json_encode(["data"=>$service]);
     }
 
     /**
@@ -77,7 +77,7 @@ class ServiceController
      */
     public function getServiceByName($serviceName){
         $service = $this->serviceService->getServiceByName($serviceName);
-        return json_encode($service);
+        return json_encode(["data"=>$service]);
     }
 
     /**
@@ -86,7 +86,16 @@ class ServiceController
      */
     public function getAllService(){
         $serviceList = $this->serviceService->getAllService();
-        return json_encode($serviceList,true);
+        return json_encode(["data"=>$serviceList], true);
+    }
+
+    /**
+     * GET : "/getAllByCompanyId"
+     * @return string
+     */
+    function getAllServiceGroupByCompanyId(){
+        $serviceList = $this->serviceService->getAllGroupByCompanyId();
+        return json_encode(["data"=>$serviceList],true);
     }
 
 }

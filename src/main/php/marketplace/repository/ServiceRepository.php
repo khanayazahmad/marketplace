@@ -167,5 +167,43 @@ class ServiceRepository
 
     }
 
+    function getAllGroupByCompanyIdOrderByVisitCount(){
+
+        $serviceList = null;
+
+        $query = "select * from services order by visit_count desc";
+
+        $result = mysqli_query($this->getConn(), $query );
+
+
+
+        if (mysqli_num_rows($result)> 0) {
+            $serviceList = [];
+            while(($row = mysqli_fetch_assoc($result))){
+
+                $service = (new Service($row['service_id'],
+                    $row['name'],
+                    $row['description'],
+                    $row['url'],
+                    $row['visit_count'],
+                    $row['last_visited'],
+                    $this->companyRepository->getByID($row['company_id'])
+                ));
+
+                if(array_key_exists($service->getCompany()->getCompanyId(),$serviceList)){
+                    $serviceList[$service->getCompany()->getCompanyId()] += [$service];
+                }else{
+
+                    $serviceList += [$service->getCompany()->getCompanyId()=>[$service]];
+                }
+
+            }
+
+        }
+
+        return $serviceList;
+
+    }
+
 
 }

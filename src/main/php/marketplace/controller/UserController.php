@@ -56,7 +56,7 @@ class UserController
      */
     public function getUserByUsername($username){
         $user = $this->userService->getUserByUsername($username);
-        return json_encode($user);
+        return json_encode(["data"=>$user]);
     }
 
     /**
@@ -66,7 +66,7 @@ class UserController
      */
     public function getUserByFirstName($firstName){
         $userList = $this->userService->getUserByFirstName($firstName);
-        return json_encode($userList,true);
+        return json_encode(["data"=>$userList],true);
     }
 
     /**
@@ -76,7 +76,7 @@ class UserController
      */
     public function getUserByLastName($lastName){
         $userList = $this->userService->getUserByLastName($lastName);
-        return json_encode($userList,true);
+        return json_encode(["data"=>$userList],true);
     }
 
     /**
@@ -86,7 +86,7 @@ class UserController
      */
     public function getUserByEmail($email){
         $userList = $this->userService->getUserByEmail($email);
-        return json_encode($userList, true);
+        return json_encode(["data"=>$userList], true);
     }
 
     /**
@@ -96,7 +96,7 @@ class UserController
      */
     public function getUserByPhone($phone){
         $userList = $this->userService->getUserByPhone($phone);
-        return json_encode($userList, true);
+        return json_encode(["data"=>$userList], true);
     }
 
     /**
@@ -106,7 +106,7 @@ class UserController
      */
     public function getUserByAddress($address){
         $userList = $this->userService->getUserByAddress($address);
-        return json_encode($userList, true);
+        return json_encode(["data"=>$userList], true);
     }
 
     /**
@@ -115,6 +115,6 @@ class UserController
      */
     public function getAllUser(){
        $userList = $this->userService->getAllUser();
-        return json_encode($userList, true);
+        return json_encode(["data"=>$userList], true);
     }
 }

@@ -32,7 +32,7 @@ class CompanyController
      */
     public function getCompanyById($companyId){
         $company = $this->companyService->getCompanyById(intval($companyId));
-        return json_encode($company);
+        return json_encode(["data"=>$company]);
     }
 
     /**
@@ -42,7 +42,7 @@ class CompanyController
      */
     public function getCompanyByName($companyName){
         $company = $this->companyService->getCompanyByName($companyName);
-        return json_encode($company);
+        return json_encode(["data"=>$company]);
 
     }
 
@@ -52,7 +52,7 @@ class CompanyController
      */
     public function getAllCompany(){
         $companyList = $this->companyService->getAllCompany();
-        return json_encode($companyList,true);
+        return json_encode(["data"=>$companyList],true);
 
     }
 

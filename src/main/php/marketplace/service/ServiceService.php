@@ -51,4 +51,8 @@ class ServiceService
         return $this->serviceRepository->getAll();
     }
 
+    function getAllGroupByCompanyId(){
+        return $this->serviceRepository->getAllGroupByCompanyIdOrderByVisitCount();
+    }
+
 }

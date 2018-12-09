@@ -21,7 +21,8 @@
       "updateStats": "updateServiceStatisticsById",
       "getById": "getServiceById",
       "getByName": "getServiceByName",
-      "getAll": "getAllService"
+      "getAll": "getAllService",
+      "getAllGroupByCompanyId": "getAllServiceGroupByCompanyId"
     }
   },
   "company":{
