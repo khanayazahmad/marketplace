@@ -194,7 +194,7 @@ class ServiceRepository
                 ));
 
                 if(array_key_exists($service->getCompany()->getCompanyId(),$serviceList)){
-                    if(sizeof($serviceList[$service->getCompany()->getCompanyId()])<= 5) {
+                    if(sizeof($serviceList[$service->getCompany()->getCompanyId()])< 5) {
                         array_push($serviceList[$service->getCompany()->getCompanyId()], $service);
                     }
                 }else{
