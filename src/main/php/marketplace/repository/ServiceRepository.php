@@ -167,6 +167,9 @@ class ServiceRepository
 
     }
 
+    /**
+     * @return array|null
+     */
     function getAllGroupByCompanyIdOrderByVisitCount(){
 
         $serviceList = null;
@@ -191,7 +194,7 @@ class ServiceRepository
                 ));
 
                 if(array_key_exists($service->getCompany()->getCompanyId(),$serviceList)){
-                    $serviceList[$service->getCompany()->getCompanyId()] += [$service];
+                    $serviceList[$service->getCompany()->getCompanyId()] += $service;
                 }else{
 
                     $serviceList += [$service->getCompany()->getCompanyId()=>[$service]];
