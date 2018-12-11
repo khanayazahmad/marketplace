@@ -145,10 +145,10 @@ class ServiceRepository
 
         if (mysqli_num_rows($result)> 0) {
             $serviceList = [];
+            $count = 0;
             while(($row = mysqli_fetch_assoc($result))){
 
-                $serviceList += [$row['service_id']
-                    => (new Service($row['service_id'],
+                $serviceList += [(++$count)=>(new Service($row['service_id'],
                         $row['name'],
                         $row['description'],
                         $row['url'],

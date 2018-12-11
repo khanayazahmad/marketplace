@@ -43,6 +43,7 @@ class APIHandler
     public static function executeAPI($requestMethod, $uri){
 
         $dbConnectionHandler = new DBConnectionHandler();
+        $dbConnectionHandler->dbInit();
 
         $uri_map = self::parseURI($requestMethod, $uri);
 

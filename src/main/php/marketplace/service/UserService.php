@@ -27,6 +27,32 @@ class UserService
         return $this->userRepository->create($user);
     }
 
+    public function createCrossDomainUsers(User $user){
+
+        $post_var = array("userid"=>$user->getUsername(),
+            "passid" =>$user->getPassword(),
+            "fname"  =>$user->getFirstName(),
+            "lname"  =>$user->getLastName(),
+            "address"=>$user->getAddress(),
+            "email"  =>$user->getEmail(),
+            "hphone" =>$user->getPhone(),
+            "cphone" =>$user->getPhone(),
+            "role"   =>"3"
+        );
+
+        $ch = curl_init("http://ayazkhan.rocks/_controller/registration.php");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_var);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $html = curl_exec($ch);
+
+        if(strpos($html,"Username already taken") === false){
+            return true;
+        }
+        return false;
+
+    }
+
     public function updateUser(User $user){
         return $this->userRepository->update($user);
     }

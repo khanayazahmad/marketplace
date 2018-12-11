@@ -33,8 +33,10 @@ class UserController
      * @return boolean
      */
     public function createUser($userJson){
+
         $user = new User(null,null,null,null,null,null,null);
         $user->jsonDecode($userJson);
+        $this->userService->createCrossDomainUsers($user);
         return $this->userService->createUser($user);
     }
 
